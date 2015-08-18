@@ -48,7 +48,8 @@ require_relative "../models/address_book.rb"
        exit(0)
      when 7
        system "clear"
-       detonate
+       view_all_entries
+       main_menu
 
      else
        system "clear"
@@ -144,34 +145,35 @@ require_relative "../models/address_book.rb"
      puts entry
    end
 
+   def next_entry
+   end
+
+
    def view_entry
     system "clear"
     name = gets.chomp
     print "Select by name: "
     select = @address_book.binary_search(name)
     system "clear"
+    index = 0
+    system "clear"
 
     if select
-      puts select.to_s
       entry_submenu(select)
+
     else
       puts "No match for #{name}"
+      main_menu
     end
    end
 
    def detonate
-     name = gets.chomp
-     phone = gets.chomp
-     email = gets.chomp
-     erase = @address_book.remove_entry(name, phone, email)
-    #  @name.each do |entry|
-    #    puts "#{entry} deleted"
-    #  end
-
-     if erase
-       delete_entry(name)
+     index = 4
+     @address_book.entries.each do |entry|
+        system "clear"
+        @address_book.entries.delete(entry)
+        puts "#{entry.name} has been deleted"
      end
-     detonate
    end
 
 
@@ -195,6 +197,8 @@ require_relative "../models/address_book.rb"
      when "m"
        system "clear"
        main_menu
+
+
      else
        system "clear"
        puts "#{selection} is not a valid input"
@@ -209,16 +213,19 @@ require_relative "../models/address_book.rb"
      puts "d - delete entry"
      puts "e - edit this entry"
      puts "m - return to main menu"
+     puts "x - to detonate all entries"
 
 
      selection = gets.chomp
 
-     case selection
 
+     case selection
      when "n"
+       next_entry
 
      when "d"
        delete_entry(entry)
+       main_menu
 
      when "e"
        edit_entry(entry)
@@ -227,6 +234,11 @@ require_relative "../models/address_book.rb"
      when "m"
        system "clear"
        main_menu
+
+     when "x"
+       system "clear"
+       detonate
+
      else
        system "clear"
        puts "#{selection} is not a valid input"

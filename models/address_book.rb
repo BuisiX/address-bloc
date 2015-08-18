@@ -50,4 +50,15 @@ class AddressBook
 		end
 		return nil
 	end
+
+	def iterative_delete
+		index = 0
+		@entries.each do |entry|
+			if name == entry.name
+				@entries.delete(name)
+			end
+		end
+		index += 1
+		@entries.delete(name)
+	end
 end

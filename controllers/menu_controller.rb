@@ -169,11 +169,19 @@ require_relative "../models/address_book.rb"
 
    def detonate
      index = 4
-     @address_book.entries.each do |entry|
-        system "clear"
-        @address_book.entries.delete(entry)
-        puts "#{entry.name} has been deleted"
-     end
+    #  @address_book.entries = Array.new
+      while @address_book.entries.count > 0
+        @address_book.entries.pop
+      end
+      puts "Deleted all entries"
+    #  @address_book.entries.count.times.do |x|
+    #    @address_book.shift
+    #  end
+    #  @address_book.entries.each do |entry|
+    #     # system "clear"
+    #     @address_book.entries.delete(entry)
+    #     puts "#{entry.name} has been deleted"
+    #  end
    end
 
 
@@ -238,7 +246,7 @@ require_relative "../models/address_book.rb"
      when "x"
        system "clear"
        detonate
-
+       main_menu
      else
        system "clear"
        puts "#{selection} is not a valid input"
